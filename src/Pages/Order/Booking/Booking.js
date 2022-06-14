@@ -14,7 +14,7 @@ const Booking = ({ booking, date }) => {
         <>
             <Grid item xs={12} sm={6} md={4}>
                 <Paper elevation={3} sx={{ py: 5 }}>
-                    <Typography variant="h4" gutterBottom component="div" sx={{ color: 'secondary.dark', fontWeight: 400 }}>
+                    <Typography variant="h4" gutterBottom component="div" sx={{ color: 'blueviolet', fontWeight: 400 }}>
                         ${booking.price}
                     </Typography>
                     <Typography variant="h5" gutterBottom component="div" sx={{ color: 'info.main', fontWeight: 'light' }}>
