@@ -25,14 +25,19 @@ const Navigation = () => {
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                        News
+                        Online Home Refinement System
                     </Typography>
                     <NavLink style={{ textDecoration: 'none', color: 'white', backgroundColor: '#32CD32', borderRadius: '5px', marginRight: '5px' }} to="/order">
                         <Button color="inherit">ORDER</Button>
                     </NavLink>
                     {
                         user?.email ?
-                            <Button style={{ textDecoration: 'none', color: 'white', backgroundColor: '#DC143C', borderRadius: '5px', marginRight: '5px' }} onClick={logOut} color="inherit">LOGOUT</Button>
+                            <Box>
+                                <NavLink style={{ textDecoration: 'none', color: 'white', borderRadius: '5px', marginRight: '5px' }} to="/dashboard">
+                                    <Button color="inherit">DASHBOARD</Button>
+                                    <Button style={{ textDecoration: 'none', color: 'white', backgroundColor: '#DC143C', borderRadius: '5px', marginRight: '5px' }} onClick={logOut} color="inherit">LOGOUT</Button>
+                                </NavLink>
+                            </Box>
                             :
                             <NavLink style={{ textDecoration: 'none', color: 'black', backgroundColor: 'white', borderRadius: '5px', marginRight: '5px' }} to="/login">
                                 <Button color="inherit">LOGIN</Button>

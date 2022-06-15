@@ -1,16 +1,16 @@
 import { Alert, Button, CircularProgress, Grid, TextField, Typography } from '@mui/material';
 import { Container } from '@mui/system';
 import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import useAuth from '../../../Hooks/useAuth';
 import login from '../../../Images/login.png';
 
 const SignUp = () => {
     const [loginData, setLoginData] = useState({})
-
+    const history = useHistory();
     const { user, registerUser, isLoading, authError } = useAuth()
 
-    const handleOnChange = e => {
+    const handleOnBlur = e => {
         const field = e.target.name;
         const value = e.target.value;
         const newLoginData = { ...loginData };
@@ -21,7 +21,7 @@ const SignUp = () => {
         if (loginData.password !== loginData.password2) {
             return;
         }
-        registerUser(loginData.email, loginData.password)
+        registerUser(loginData.email, loginData.password, loginData.name, history)
         e.preventDefault();
     }
     return (
@@ -35,10 +35,18 @@ const SignUp = () => {
                         <TextField
                             sx={{ width: '75%', m: 1 }}
                             id="standard-basic"
+                            label="Name"
+                            type="text"
+                            name="name"
+                            onBlur={handleOnBlur}
+                            variant="standard" />
+                        <TextField
+                            sx={{ width: '75%', m: 1 }}
+                            id="standard-basic"
                             label="Email"
                             type="email"
                             name="email"
-                            onChange={handleOnChange}
+                            onBlur={handleOnBlur}
                             variant="standard" />
                         <TextField
                             sx={{ width: '75%', m: 1 }}
@@ -46,7 +54,7 @@ const SignUp = () => {
                             label="Password"
                             type="password"
                             name="password"
-                            onChange={handleOnChange}
+                            onBlur={handleOnBlur}
                             variant="standard" />
                         <TextField
                             sx={{ width: '75%', m: 1 }}
@@ -54,9 +62,9 @@ const SignUp = () => {
                             label="Confirm Password"
                             type="password"
                             name="password2"
-                            onChange={handleOnChange}
+                            onBlur={handleOnBlur}
                             variant="standard" />
-                        <Button style={{ color: 'white', backgroundColor: 'black' }} sx={{ width: '25%', m: 1, borderRadius: '20px' }} variant="contained" type="submit">SIGN UP</Button>
+                        <Button style={{ color: 'white', backgroundColor: 'black' }} sx={{ width: '75%', m: 1, borderRadius: '20px' }} variant="contained" type="submit">SIGN UP</Button>
                         <br />
                         <NavLink style={{ textDecoration: 'none' }} to="/login">
                             <Button variant="text">ALREADY A USER? PLEASE LOGIN</Button>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Backdrop from '@mui/material/Backdrop';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
@@ -6,6 +6,7 @@ import Fade from '@mui/material/Fade';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
+import useAuth from '../../../Hooks/useAuth';
 
 const style = {
     position: 'absolute',
@@ -19,16 +20,46 @@ const style = {
     p: 4,
 };
 
-const BookingModal = ({ openBooking, handleBookingClose, booking, date }) => {
+const BookingModal = ({ openBooking, handleBookingClose, booking, date, setBookingSuccess }) => {
     const { name, time, price } = booking;
+    const { user } = useAuth();
+    const initialInfo = { name: user.displayName, email: user.email, number: '' }
+
+    const [bookingInfo, setBookingInfo] = useState(initialInfo);
+
+    const handleOnBlur = e => {
+        const field = e.target.name;
+        const value = e.target.value;
+        const newInfo = { ...bookingInfo };
+        newInfo[field] = value;
+        setBookingInfo(newInfo);
+    }
 
     const handleBookingSubmit = e => {
-        e.preventDefault();
 
-        // collect data, send to server
+        const appointment = {
+            ...bookingInfo,
+            time,
+            serviceName: name,
+            date: date.toLocalDateString()
+        }
+        fetch('http://localhost:5000/appointments', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(appointment)
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.insertedId) {
+                    setBookingSuccess(true);
+                    handleBookingClose();
+                }
+            })
 
         handleBookingClose();
-        alert('submitted')
+        e.preventDefault();
     }
 
     return (
@@ -63,16 +94,29 @@ const BookingModal = ({ openBooking, handleBookingClose, booking, date }) => {
                         <TextField
                             hiddenLabel
                             id="filled-hidden-label-small"
-                            defaultValue="Your Name"
+                            name="name"
+                            onBlur={handleOnBlur}
+                            defaultValue={user.displayName}
+                            variant="filled"
+                            sx={{ width: '100%', my: 1 }}
+                        />
+                        <TextField
+                            hiddenLabel
+                            id="filled-hidden-label-small"
+                            name="email"
+                            onBlur={handleOnBlur}
+                            defaultValue={user.email}
                             variant="filled"
                             sx={{ width: '100%' }}
                         />
                         <TextField
                             hiddenLabel
                             id="filled-hidden-label-small"
-                            defaultValue="Your Email"
+                            defaultValue="Phone Number"
+                            name="number"
+                            onBlur={handleOnBlur}
                             variant="filled"
-                            sx={{ width: '100%' }}
+                            sx={{ width: '100%', my: 1 }}
                         />
                         <TextField
                             disabled
@@ -80,7 +124,7 @@ const BookingModal = ({ openBooking, handleBookingClose, booking, date }) => {
                             id="filled-hidden-label-small"
                             defaultValue={date.toDateString()}
                             variant="filled"
-                            sx={{ width: '100%' }}
+                            sx={{ width: '100%', mb: 1 }}
                         />
                         <Button type="submit" variant="contained">BOOK NOW</Button>
                     </form>

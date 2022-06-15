@@ -8,7 +8,7 @@ import login from '../../../Images/login.png';
 
 const Login = () => {
     const [loginData, setLoginData] = useState({})
-    const { user, loginUser, isLoading, authError } = useAuth();
+    const { user, loginUser, isLoading, signInWithGoogle, authError } = useAuth();
 
     const location = useLocation();
     const history = useHistory();
@@ -24,6 +24,11 @@ const Login = () => {
         loginUser(loginData.email, loginData.password, location, history)
         e.preventDefault();
     }
+
+    const handleGoogleSignIn = () => {
+        signInWithGoogle(location, history);
+    }
+
     return (
         <Container>
             <Grid container spacing={2}>
@@ -38,7 +43,7 @@ const Login = () => {
                             label="Email"
                             type="email"
                             name="email"
-                            onChange={handleOnChange}
+                            onBlur={handleOnChange}
                             variant="standard" />
                         <TextField
                             sx={{ width: '75%', m: 1 }}
@@ -46,9 +51,9 @@ const Login = () => {
                             label="Password"
                             type="password"
                             name="password"
-                            onChange={handleOnChange}
+                            onBlur={handleOnChange}
                             variant="standard" />
-                        <Button sx={{ width: '25%', m: 1, borderRadius: "20px" }} variant="contained" type="submit">LOGIN</Button>
+                        <Button sx={{ width: '75%', m: 1, borderRadius: "20px" }} variant="contained" type="submit">LOGIN</Button>
                         <br />
                         <NavLink style={{ textDecoration: 'none' }} to="/signup">
                             <Button variant="text">NEW USER? PLEASE SIGN UP</Button>
@@ -57,6 +62,8 @@ const Login = () => {
                         {user?.email && <Alert severity="success">Login successful!</Alert>}
                         {authError && <Alert severity="error">{authError}</Alert>}
                     </form>}
+                    <p>-------------------------------------</p>
+                    <Button onClick={handleGoogleSignIn} style={{ backgroundColor: 'tomato', borderRadius: '20px', width: '75%' }} variant="contained">GOOGLE SIGN IN</Button>
                 </Grid>
                 <Grid sx={{ mt: 20 }} item xs={12} md={6}>
                     <img style={{ width: '35%' }} src={login} alt="" />

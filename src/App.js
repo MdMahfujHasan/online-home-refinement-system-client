@@ -11,6 +11,7 @@ import Login from './Pages/Login/Login/Login';
 import SignUp from './Pages/Login/SignUp/SignUp';
 import AuthProvider from './Contexts/AuthProvider/AuthProvider';
 import PrivateRoute from './Pages/Login/PrivateRoute/PrivateRoute';
+import Dashboard from './Pages/Dashboard/Dashboard/Dashboard';
 
 function App() {
   return (
@@ -20,6 +21,9 @@ function App() {
           <Switch>
             <PrivateRoute path="/order">
               <Order />
+            </PrivateRoute>
+            <PrivateRoute path="/dashboard">
+              <Dashboard />
             </PrivateRoute>
             <Route path="/home">
               <Home />
