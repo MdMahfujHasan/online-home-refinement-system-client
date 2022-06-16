@@ -4,6 +4,7 @@ import Grid from '@mui/material/Grid';
 import worker from '../../../Images/worker.png';
 import interiorBg from '../../../Images/interior-bg.jpg';
 import { Button, Typography } from '@mui/material';
+import { NavLink } from 'react-router-dom';
 
 const orderBg = {
     background: `url(${interiorBg})`,
@@ -40,7 +41,7 @@ const OrderBanner = () => {
                         <Typography variant="body2" color="white" sx={{ boxShadow: 20, mb: 2, p: 1 }}>
                             Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem numquam exercitationem, eveniet asperiores deserunt voluptate ipsum modi consequatur non eius earum ex expedita quos iste nam ipsa porro at. Esse ratione, sunt consequuntur nulla doloribus facilis quaerat ipsam amet quod unde ad quam? Distinctio maxime optio soluta commodi voluptate laudantium.
                         </Typography>
-                        <Button variant="contained">LEARN MORE</Button>
+                        <NavLink style={{ textDecoration: 'none' }} to="learnmore"><Button variant="contained">LEARN MORE</Button></NavLink>
                     </Box>
                 </Grid>
             </Grid>

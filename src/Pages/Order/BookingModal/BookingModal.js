@@ -23,7 +23,7 @@ const style = {
 const BookingModal = ({ openBooking, handleBookingClose, booking, date, setBookingSuccess }) => {
     const { name, time, price } = booking;
     const { user } = useAuth();
-    const initialInfo = { name: user.displayName, email: user.email, number: '' }
+    const initialInfo = { name: user.name, email: user.email, number: '' }
 
     const [bookingInfo, setBookingInfo] = useState(initialInfo);
 
@@ -96,6 +96,7 @@ const BookingModal = ({ openBooking, handleBookingClose, booking, date, setBooki
                             id="filled-hidden-label-small"
                             name="name"
                             onBlur={handleOnBlur}
+                            placeholder="Name"
                             defaultValue={user.displayName}
                             variant="filled"
                             sx={{ width: '100%', my: 1 }}
@@ -112,7 +113,8 @@ const BookingModal = ({ openBooking, handleBookingClose, booking, date, setBooki
                         <TextField
                             hiddenLabel
                             id="filled-hidden-label-small"
-                            defaultValue="Phone Number"
+                            // defaultValue="Phone Number"
+                            placeholder="Phone Number"
                             name="number"
                             onBlur={handleOnBlur}
                             variant="filled"

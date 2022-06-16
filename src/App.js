@@ -12,6 +12,7 @@ import SignUp from './Pages/Login/SignUp/SignUp';
 import AuthProvider from './Contexts/AuthProvider/AuthProvider';
 import PrivateRoute from './Pages/Login/PrivateRoute/PrivateRoute';
 import Dashboard from './Pages/Dashboard/Dashboard/Dashboard';
+import LearnMore from './Pages/Home/LearnMore/LearnMore';
 
 function App() {
   return (
@@ -27,6 +28,9 @@ function App() {
             </PrivateRoute>
             <Route path="/home">
               <Home />
+            </Route>
+            <Route path="/learnmore">
+              <LearnMore />
             </Route>
             <Route path="/login">
               <Login />

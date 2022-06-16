@@ -8,6 +8,7 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Link, NavLink } from 'react-router-dom';
 import useAuth from '../../../Hooks/useAuth';
+import home from '../../../Images/home.png';
 
 const Navigation = () => {
     const { user, logOut } = useAuth();
@@ -24,7 +25,12 @@ const Navigation = () => {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                    <NavLink to="/home">
+                        <Typography>
+                            <img style={{ width: '75%' }} src={home} alt="" />
+                        </Typography>
+                    </NavLink>
+                    <Typography variant="h5" component="div" sx={{ flexGrow: 1, fontWeight: 'light' }}>
                         Online Home Refinement System
                     </Typography>
                     <NavLink style={{ textDecoration: 'none', color: 'white', backgroundColor: '#32CD32', borderRadius: '5px', marginRight: '5px' }} to="/order">
